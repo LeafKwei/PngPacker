@@ -15,6 +15,7 @@ protected:
     
 signals:
     void itemRightClicked(QListWidgetItem *item, QPointF clickedPos);
+    void itemRemoved();
 };
 
 #endif // LISTWIDGET_H

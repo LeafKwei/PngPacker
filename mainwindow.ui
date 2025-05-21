@@ -40,6 +40,7 @@
     <property name="title">
      <string>编辑(&amp;E)</string>
     </property>
+    <addaction name="action"/>
    </widget>
    <widget class="QMenu" name="menu_help">
     <property name="title">
@@ -69,6 +70,11 @@
   <action name="act_saveas">
    <property name="text">
     <string>另存为</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>删除</string>
    </property>
   </action>
  </widget>

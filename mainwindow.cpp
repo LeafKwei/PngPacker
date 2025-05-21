@@ -32,8 +32,9 @@ void MainWindow::initUi(){
     m_hoverMenu = new QMenu(m_centralWidget);
     
     /* 初始化视图 */
-    m_listWidget -> addItem("NO IMAGE");
+    m_listWidget -> addItem("主页");
     m_stackedWidget -> addWidget(new NoImgWidget(m_stackedWidget));
+    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
     
     /* 添加视图到布局 */
     m_mainLayout -> setSpacing(5);
@@ -46,15 +47,68 @@ void MainWindow::initUi(){
 void MainWindow::initConnection(){
     connect(m_listWidget, SIGNAL(currentRowChanged(int)), m_stackedWidget, SLOT(setCurrentIndex(int)));
     connect(m_listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(do_itemClicked(QListWidgetItem*)));
-    connect(m_listWidget, SIGNAL(itemRightClicked(QListWidgetItem*, QPointF)), this, SLOT(do_itemRightClicked(QListWidgetItem*, QPointF)));
+    connect(m_listWidget, SIGNAL(itemRightClicked(QListWidgetItem*,QPointF)), this, SLOT(do_itemRightClicked(QListWidgetItem*,QPointF))); //wtf! 在“QListWidgetItem*,QPointF”逗号后面如果存在空格会触发signature is not normalized的警告
+    connect(m_hoverMenu, SIGNAL(triggered(QAction*)), this, SLOT(do_menuActionTriggered(QAction*)));
+    
+    /* 上边菜单栏 */
+    connect(ui -> menu_file, SIGNAL(triggered(QAction*)), this, SLOT(do_menuFileActionTriggered(QAction*)));
+    connect(ui -> menu_edit, SIGNAL(triggered(QAction*)), this, SLOT(do_menuEditActionTriggered(QAction*)));
+    connect(ui -> menu_help, SIGNAL(triggered(QAction*)), this, SLOT(do_menuHelpActionTriggered(QAction*)));
 }
 
-void MainWindow::do_itemClicked(QListWidgetItem *item){
+void MainWindow::deleteCurrentItem(){
+    QListWidgetItem *item = m_listWidget -> currentItem();
+    QWidget *widget = m_stackedWidget -> currentWidget();
     
+    if((!item) || (!widget)) return;
+    
+    m_listWidget -> removeItemWidget(item);
+    m_stackedWidget -> removeWidget(widget);
+    delete item;
+    delete widget;
+}
+
+/* ---------------- SLOTS ------------------*/
+
+void MainWindow::do_itemClicked(QListWidgetItem *item){
+    //暂时保留
 }
 
 void MainWindow::do_itemRightClicked(QListWidgetItem *item, QPointF clickedPos){
-    qDebug() << "Right clicked!";
-    if(!item) return;
-    qDebug() << "Has item!";
+    if(!item) return; //在无item的位置右键时不做任何操作
+    m_hoverMenu -> exec(clickedPos.toPoint());
 }
+
+void MainWindow::do_menuActionTriggered(QAction *action){
+    if(action -> text() == tr("删除")){  //点击删除按钮
+        deleteCurrentItem();
+    }
+}
+
+void MainWindow::do_menuFileActionTriggered(QAction *action){
+    if(action -> text() == tr("打包")){
+        m_listWidget -> addItem("新建打包");
+        m_stackedWidget -> addWidget(new NoImgWidget(m_stackedWidget));
+    }
+    else if(action -> text() == tr("解包")){
+    
+    }
+    else if(action -> text() == tr("退出")){
+        close();
+    }
+    else
+    {
+        
+    }
+}
+
+void MainWindow::do_menuEditActionTriggered(QAction *action){
+    if(action -> text() == tr("删除")){
+        deleteCurrentItem();
+    }
+}
+
+void MainWindow::do_menuHelpActionTriggered(QAction *action){
+    
+}
+

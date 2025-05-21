@@ -28,6 +28,7 @@ public:
     QAction *act_unpack;
     QAction *act_quit;
     QAction *act_saveas;
+    QAction *action;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menu_file;
@@ -51,6 +52,8 @@ public:
         act_quit->setObjectName("act_quit");
         act_saveas = new QAction(MainWindow);
         act_saveas->setObjectName("act_saveas");
+        action = new QAction(MainWindow);
+        action->setObjectName("action");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         MainWindow->setCentralWidget(centralwidget);
@@ -75,6 +78,7 @@ public:
         menu_file->addAction(act_unpack);
         menu_file->addAction(act_saveas);
         menu_file->addAction(act_quit);
+        menu_edit->addAction(action);
 
         retranslateUi(MainWindow);
 
@@ -88,6 +92,7 @@ public:
         act_unpack->setText(QCoreApplication::translate("MainWindow", "\350\247\243\345\214\205", nullptr));
         act_quit->setText(QCoreApplication::translate("MainWindow", "\351\200\200\345\207\272", nullptr));
         act_saveas->setText(QCoreApplication::translate("MainWindow", "\345\217\246\345\255\230\344\270\272", nullptr));
+        action->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
         menu_file->setTitle(QCoreApplication::translate("MainWindow", "\346\226\207\344\273\266(&F)", nullptr));
         menu_edit->setTitle(QCoreApplication::translate("MainWindow", "\347\274\226\350\276\221(&E)", nullptr));
         menu_help->setTitle(QCoreApplication::translate("MainWindow", "\345\270\256\345\212\251(&H)", nullptr));

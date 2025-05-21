@@ -416,8 +416,6 @@ D:/K_File/K_Project/qt/PngPacker/mainwindow.h
  mdp:D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/moc_predefs.h
  mdp:D:/K_File/K_Project/qt/PngPacker/listwidget.h
  mdp:D:/K_File/K_Project/qt/PngPacker/mainwindow.h
-D:/K_File/K_Project/qt/PngPacker/unpackerwindow.cpp
- uic:ui_unpackerwindow.h
 D:/K_File/K_Project/qt/PngPacker/listwidget.h
  mmc:Q_OBJECT
  mdp:D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore/QList
@@ -826,8 +824,8 @@ D:/K_File/K_Project/qt/PngPacker/listwidget.h
  mdp:D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/moc_predefs.h
  mdp:D:/K_File/K_Project/qt/PngPacker/listwidget.h
 D:/K_File/K_Project/qt/PngPacker/main.cpp
-D:/K_File/K_Project/qt/PngPacker/mainwindow.cpp
- uic:./ui_mainwindow.h
+D:/K_File/K_Project/qt/PngPacker/unpackerwindow.cpp
+ uic:ui_unpackerwindow.h
 D:/K_File/K_Project/qt/PngPacker/noimgwidget.h
  mmc:Q_OBJECT
  mdp:D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore/q20functional.h
@@ -1194,6 +1192,8 @@ D:/K_File/K_Project/qt/PngPacker/noimgwidget.h
  mdp:D:/K_Application/K_InstallSoftware/QT/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/moc_predefs.h
  mdp:D:/K_File/K_Project/qt/PngPacker/noimgwidget.h
+D:/K_File/K_Project/qt/PngPacker/mainwindow.cpp
+ uic:./ui_mainwindow.h
 D:/K_File/K_Project/qt/PngPacker/packerwindow.h
  mmc:Q_OBJECT
  mdp:D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore/q20functional.h

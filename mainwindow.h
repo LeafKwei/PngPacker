@@ -23,6 +23,10 @@ public:
 private slots:
     void do_itemClicked(QListWidgetItem *item);
     void do_itemRightClicked(QListWidgetItem *item, QPointF clickedPos);
+    void do_menuActionTriggered(QAction *action);
+    void do_menuFileActionTriggered(QAction *action);
+    void do_menuEditActionTriggered(QAction *action);
+    void do_menuHelpActionTriggered(QAction *action);
 
 private:
     Ui::MainWindow *ui;
@@ -34,5 +38,6 @@ private:
     
     void initUi();
     void initConnection();
+    void deleteCurrentItem();
 };
 #endif // MAINWINDOW_H
