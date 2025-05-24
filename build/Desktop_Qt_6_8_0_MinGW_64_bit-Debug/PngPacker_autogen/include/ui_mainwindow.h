@@ -27,7 +27,7 @@ public:
     QAction *act_pack;
     QAction *act_unpack;
     QAction *act_quit;
-    QAction *act_saveas;
+    QAction *act_save;
     QAction *action;
     QWidget *centralwidget;
     QMenuBar *menubar;
@@ -50,8 +50,8 @@ public:
         act_unpack->setObjectName("act_unpack");
         act_quit = new QAction(MainWindow);
         act_quit->setObjectName("act_quit");
-        act_saveas = new QAction(MainWindow);
-        act_saveas->setObjectName("act_saveas");
+        act_save = new QAction(MainWindow);
+        act_save->setObjectName("act_save");
         action = new QAction(MainWindow);
         action->setObjectName("action");
         centralwidget = new QWidget(MainWindow);
@@ -76,7 +76,7 @@ public:
         menubar->addAction(menu_help->menuAction());
         menu_file->addAction(act_pack);
         menu_file->addAction(act_unpack);
-        menu_file->addAction(act_saveas);
+        menu_file->addAction(act_save);
         menu_file->addAction(act_quit);
         menu_edit->addAction(action);
 
@@ -89,10 +89,25 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "PngPacker", nullptr));
         act_pack->setText(QCoreApplication::translate("MainWindow", "\346\211\223\345\214\205", nullptr));
+#if QT_CONFIG(shortcut)
+        act_pack->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+N", nullptr));
+#endif // QT_CONFIG(shortcut)
         act_unpack->setText(QCoreApplication::translate("MainWindow", "\350\247\243\345\214\205", nullptr));
+#if QT_CONFIG(shortcut)
+        act_unpack->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+P", nullptr));
+#endif // QT_CONFIG(shortcut)
         act_quit->setText(QCoreApplication::translate("MainWindow", "\351\200\200\345\207\272", nullptr));
-        act_saveas->setText(QCoreApplication::translate("MainWindow", "\345\217\246\345\255\230\344\270\272", nullptr));
+#if QT_CONFIG(shortcut)
+        act_quit->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+X", nullptr));
+#endif // QT_CONFIG(shortcut)
+        act_save->setText(QCoreApplication::translate("MainWindow", "\344\277\235\345\255\230", nullptr));
+#if QT_CONFIG(shortcut)
+        act_save->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
+#endif // QT_CONFIG(shortcut)
         action->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
+#if QT_CONFIG(shortcut)
+        action->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+D", nullptr));
+#endif // QT_CONFIG(shortcut)
         menu_file->setTitle(QCoreApplication::translate("MainWindow", "\346\226\207\344\273\266(&F)", nullptr));
         menu_edit->setTitle(QCoreApplication::translate("MainWindow", "\347\274\226\350\276\221(&E)", nullptr));
         menu_help->setTitle(QCoreApplication::translate("MainWindow", "\345\270\256\345\212\251(&H)", nullptr));

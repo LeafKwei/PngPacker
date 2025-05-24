@@ -6,11 +6,13 @@
 #include "listwidget.h"
 #include "mainwindow.h"
 #include "noimgwidget.h"
+#include "defaultwidget.h"
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_windowState(MainWindowState::DEFAULT)
 {
     ui->setupUi(this);
     this -> setWindowState(Qt::WindowMaximized);
@@ -25,16 +27,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUi(){
     /* 创建视图对象 */
-    m_centralWidget = this -> centralWidget();
-    m_stackedWidget = new QStackedWidget(m_centralWidget);
-    m_listWidget = new ListWidget(m_centralWidget);
+    m_centralWidget = centralWidget();
+    m_defaultWidget = new DefaultWidget(this);
+    m_stackedWidget = new QStackedWidget(this);
+    m_listWidget = new ListWidget(this);
     m_mainLayout = new QHBoxLayout(m_centralWidget);
-    m_hoverMenu = new QMenu(m_centralWidget);
+    m_hoverMenu = new QMenu(m_stackedWidget);
     
     /* 初始化视图 */
-    m_listWidget -> addItem("主页");
-    m_stackedWidget -> addWidget(new NoImgWidget(m_stackedWidget));
-    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
+    initMenuBar();
+    
     
     /* 添加视图到布局 */
     m_mainLayout -> setSpacing(5);
@@ -42,6 +44,13 @@ void MainWindow::initUi(){
     m_mainLayout -> addWidget(m_stackedWidget);
     m_mainLayout -> setStretchFactor(m_listWidget, 1);
     m_mainLayout -> setStretchFactor(m_stackedWidget, 3);
+    
+    /* 根据窗口界面设置窗口 */
+    setWidgetByState();
+}
+
+void MainWindow::initMenuBar(){
+    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
 }
 
 void MainWindow::initConnection(){
@@ -66,6 +75,71 @@ void MainWindow::deleteCurrentItem(){
     m_stackedWidget -> removeWidget(widget);
     delete item;
     delete widget;
+    
+    if(m_listWidget -> count() == 0){
+        m_windowState = MainWindowState::DEFAULT;
+        setWidgetByState();
+    }
+}
+
+void MainWindow::setWidgetByState(){
+    switch(m_windowState){
+        case MainWindowState::DEFAULT:
+            goto setDefault;
+        case MainWindowState::HASITEM:
+            goto setHasItem;
+        default:
+            return;
+    }
+
+setDefault:
+    m_centralWidget = takeCentralWidget(); //获取Widget的所属权，避免在setCentralWidget时被对象树删除
+    m_defaultWidget -> setParent(this);
+    setCentralWidget(m_defaultWidget);
+    return;
+
+setHasItem:
+    m_defaultWidget = takeCentralWidget();
+    m_centralWidget -> setParent(this);
+    setCentralWidget(m_centralWidget);
+    return;    
+}
+
+MAI MainWindow::textToIndex(const QString &text){
+    if(text == "打包") return MainWindowActIndex::PACK;
+    if(text == "解包") return MainWindowActIndex::UNPACK;
+    if(text == "退出") return MainWindowActIndex::QUIT;
+    if(text == "删除") return MainWindowActIndex::DELETEITEM;
+    if(text == "保存") return MainWindowActIndex::SAVE;
+    
+    return MainWindowActIndex::NONE;
+}
+
+/* ---------------- ACTIONS ------------------*/
+void MainWindow::act_pack(){
+    m_listWidget -> addItem("新建打包");
+    m_stackedWidget -> addWidget(new DefaultWidget());
+    
+    if(m_windowState == MainWindowState::DEFAULT){
+        m_windowState = MainWindowState::HASITEM;
+        setWidgetByState();
+    }
+}
+
+void MainWindow::act_unpck(){
+
+}
+
+void MainWindow::act_save(){
+
+}
+
+void MainWindow::act_quit(){
+    close();
+}
+
+void MainWindow::act_deleteItem(){
+    deleteCurrentItem();
 }
 
 /* ---------------- SLOTS ------------------*/
@@ -80,31 +154,35 @@ void MainWindow::do_itemRightClicked(QListWidgetItem *item, QPointF clickedPos){
 }
 
 void MainWindow::do_menuActionTriggered(QAction *action){
-    if(action -> text() == tr("删除")){  //点击删除按钮
-        deleteCurrentItem();
+    switch(textToIndex(action -> text())){
+        case MainWindowActIndex::DELETEITEM:
+            act_deleteItem();
+            break;
     }
 }
 
 void MainWindow::do_menuFileActionTriggered(QAction *action){
-    if(action -> text() == tr("打包")){
-        m_listWidget -> addItem("新建打包");
-        m_stackedWidget -> addWidget(new NoImgWidget(m_stackedWidget));
-    }
-    else if(action -> text() == tr("解包")){
-    
-    }
-    else if(action -> text() == tr("退出")){
-        close();
-    }
-    else
-    {
-        
+    switch(textToIndex(action -> text())){
+        case MainWindowActIndex::PACK:
+            act_pack();
+            break;
+        case MainWindowActIndex::UNPACK:
+            act_unpck();
+            break;
+        case MainWindowActIndex::SAVE:
+            act_save();
+            break;
+        case MainWindowActIndex::QUIT:
+            act_quit();
+            break;
     }
 }
 
 void MainWindow::do_menuEditActionTriggered(QAction *action){
-    if(action -> text() == tr("删除")){
-        deleteCurrentItem();
+    switch(textToIndex(action -> text())){
+        case MainWindowActIndex::DELETEITEM:
+            act_deleteItem();
+            break;
     }
 }
 

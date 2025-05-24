@@ -139,7 +139,7 @@ PngPacker_autogen/timestamp: \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore/qyieldcpu.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/QImage \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/QMouseEvent \
-	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/QPainter \
+	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/QPaintEvent \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/QTransform \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qaction.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qbitmap.h \
@@ -159,9 +159,7 @@ PngPacker_autogen/timestamp: \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qinputmethod.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qkeysequence.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
-	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpainter.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpalette.h \
-	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpen.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpixmap.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qpointingdevice.h \
@@ -171,7 +169,6 @@ PngPacker_autogen/timestamp: \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qrgba64.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qscreen.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qscreen_platform.h \
-	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qtextoption.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qtgui-config.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qtguiexports.h \
 	D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui/qtguiglobal.h \
@@ -593,14 +590,13 @@ PngPacker_autogen/timestamp: \
 	D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
 	D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
 	D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/moc_predefs.h \
+	D:/K_File/K_Project/qt/PngPacker/defaultwidget.cpp \
+	D:/K_File/K_Project/qt/PngPacker/defaultwidget.h \
 	D:/K_File/K_Project/qt/PngPacker/listwidget.cpp \
 	D:/K_File/K_Project/qt/PngPacker/listwidget.h \
 	D:/K_File/K_Project/qt/PngPacker/main.cpp \
 	D:/K_File/K_Project/qt/PngPacker/mainwindow.cpp \
 	D:/K_File/K_Project/qt/PngPacker/mainwindow.h \
-	D:/K_File/K_Project/qt/PngPacker/noimgwidget.cpp \
-	D:/K_File/K_Project/qt/PngPacker/noimgwidget.h \
 	D:/K_File/K_Project/qt/PngPacker/resource.qrc \
 	D:/K_File/K_Project/qt/PngPacker/mainwindow.ui \
-	D:/K_File/K_Project/qt/PngPacker/noimgwidget.ui \
 	D:/K_Application/K_InstallSoftware/QT/Tools/CMake_64/bin/cmake.exe

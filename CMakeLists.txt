@@ -24,8 +24,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
 		resource.qrc
-		noimgwidget.h noimgwidget.cpp noimgwidget.ui
+		
 		listwidget.h listwidget.cpp
+		defaultwidget.h defaultwidget.cpp
 		
 		
 		

@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-0a322626853b3bda6dec.json",
+					"jsonFile" : "directory-.-Debug-4b48d11e10f7d462a33e.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "PngPacker::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PngPacker-Debug-04f7fa245c6c3c5b29f5.json",
+					"jsonFile" : "target-PngPacker-Debug-3215032ea433e84114b3.json",
 					"name" : "PngPacker",
 					"projectIndex" : 0
 				},

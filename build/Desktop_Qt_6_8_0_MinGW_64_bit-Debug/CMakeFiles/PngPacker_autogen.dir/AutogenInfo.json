@@ -267,6 +267,12 @@
 	"HEADERS" : 
 	[
 		[
+			"D:/K_File/K_Project/qt/PngPacker/defaultwidget.h",
+			"MU",
+			"EWIEGA46WW/moc_defaultwidget.cpp",
+			null
+		],
+		[
 			"D:/K_File/K_Project/qt/PngPacker/listwidget.h",
 			"MU",
 			"EWIEGA46WW/moc_listwidget.cpp",
@@ -276,12 +282,6 @@
 			"D:/K_File/K_Project/qt/PngPacker/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
-			null
-		],
-		[
-			"D:/K_File/K_Project/qt/PngPacker/noimgwidget.h",
-			"MU",
-			"EWIEGA46WW/moc_noimgwidget.cpp",
 			null
 		]
 	],
@@ -356,10 +356,10 @@
 	"SETTINGS_FILE" : "D:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/PngPacker_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "D:/K_File/K_Project/qt/PngPacker/defaultwidget.cpp", "MU", null ],
 		[ "D:/K_File/K_Project/qt/PngPacker/listwidget.cpp", "MU", null ],
 		[ "D:/K_File/K_Project/qt/PngPacker/main.cpp", "MU", null ],
-		[ "D:/K_File/K_Project/qt/PngPacker/mainwindow.cpp", "MU", null ],
-		[ "D:/K_File/K_Project/qt/PngPacker/noimgwidget.cpp", "MU", null ]
+		[ "D:/K_File/K_Project/qt/PngPacker/mainwindow.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

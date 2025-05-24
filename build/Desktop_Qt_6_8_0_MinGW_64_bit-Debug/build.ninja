@@ -73,17 +73,17 @@ build CMakeFiles/PngPacker.dir/mainwindow.cpp.obj: CXX_COMPILER__PngPacker_unsca
   OBJECT_DIR = CMakeFiles\PngPacker.dir
   OBJECT_FILE_DIR = CMakeFiles\PngPacker.dir
 
-build CMakeFiles/PngPacker.dir/noimgwidget.cpp.obj: CXX_COMPILER__PngPacker_unscanned_Debug D$:/K_File/K_Project/qt/PngPacker/noimgwidget.cpp || cmake_object_order_depends_target_PngPacker
+build CMakeFiles/PngPacker.dir/listwidget.cpp.obj: CXX_COMPILER__PngPacker_unscanned_Debug D$:/K_File/K_Project/qt/PngPacker/listwidget.cpp || cmake_object_order_depends_target_PngPacker
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\PngPacker.dir\noimgwidget.cpp.obj.d
+  DEP_FILE = CMakeFiles\PngPacker.dir\listwidget.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -ID:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/include -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/mkspecs/win32-g++ -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtWidgets -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\PngPacker.dir
   OBJECT_FILE_DIR = CMakeFiles\PngPacker.dir
 
-build CMakeFiles/PngPacker.dir/listwidget.cpp.obj: CXX_COMPILER__PngPacker_unscanned_Debug D$:/K_File/K_Project/qt/PngPacker/listwidget.cpp || cmake_object_order_depends_target_PngPacker
+build CMakeFiles/PngPacker.dir/defaultwidget.cpp.obj: CXX_COMPILER__PngPacker_unscanned_Debug D$:/K_File/K_Project/qt/PngPacker/defaultwidget.cpp || cmake_object_order_depends_target_PngPacker
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\PngPacker.dir\listwidget.cpp.obj.d
+  DEP_FILE = CMakeFiles\PngPacker.dir\defaultwidget.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -ID:/K_File/K_Project/qt/PngPacker/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/PngPacker_autogen/include -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtCore -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/mkspecs/win32-g++ -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtWidgets -isystem D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\PngPacker.dir
@@ -105,7 +105,7 @@ build CMakeFiles/PngPacker.dir/PngPacker_autogen/EWIEGA46WW/qrc_resource.cpp.obj
 #############################################
 # Link the executable PngPacker.exe
 
-build PngPacker.exe: CXX_EXECUTABLE_LINKER__PngPacker_Debug CMakeFiles/PngPacker.dir/PngPacker_autogen/mocs_compilation.cpp.obj CMakeFiles/PngPacker.dir/main.cpp.obj CMakeFiles/PngPacker.dir/mainwindow.cpp.obj CMakeFiles/PngPacker.dir/noimgwidget.cpp.obj CMakeFiles/PngPacker.dir/listwidget.cpp.obj CMakeFiles/PngPacker.dir/PngPacker_autogen/EWIEGA46WW/qrc_resource.cpp.obj | D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Widgets.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Gui.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Core.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6EntryPoint.a || PngPacker_autogen PngPacker_autogen_timestamp_deps
+build PngPacker.exe: CXX_EXECUTABLE_LINKER__PngPacker_Debug CMakeFiles/PngPacker.dir/PngPacker_autogen/mocs_compilation.cpp.obj CMakeFiles/PngPacker.dir/main.cpp.obj CMakeFiles/PngPacker.dir/mainwindow.cpp.obj CMakeFiles/PngPacker.dir/listwidget.cpp.obj CMakeFiles/PngPacker.dir/defaultwidget.cpp.obj CMakeFiles/PngPacker.dir/PngPacker_autogen/EWIEGA46WW/qrc_resource.cpp.obj | D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Widgets.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Gui.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Core.a D$:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6EntryPoint.a || PngPacker_autogen PngPacker_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_FLAGS = -mwindows
   LINK_LIBRARIES = D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Widgets.a  D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Gui.a  D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  D:/K_Application/K_InstallSoftware/QT/6.8.0/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -192,7 +192,7 @@ build PngPacker_autogen_timestamp_deps: phony
 #############################################
 # Utility command for PngPacker_autogen
 
-build PngPacker_autogen: phony CMakeFiles/PngPacker_autogen PngPacker_autogen/include/ui_mainwindow.h PngPacker_autogen/include/ui_noimgwidget.h PngPacker_autogen/timestamp PngPacker_autogen/mocs_compilation.cpp PngPacker_autogen_timestamp_deps
+build PngPacker_autogen: phony CMakeFiles/PngPacker_autogen PngPacker_autogen/include/ui_mainwindow.h PngPacker_autogen/timestamp PngPacker_autogen/mocs_compilation.cpp PngPacker_autogen_timestamp_deps
 
 
 #############################################
@@ -218,7 +218,7 @@ build PngPacker_autogen/EWIEGA46WW/qrc_resource.cpp | ${cmake_ninja_workdir}PngP
 #############################################
 # Phony custom command for CMakeFiles\PngPacker_autogen
 
-build CMakeFiles/PngPacker_autogen PngPacker_autogen/include/ui_mainwindow.h PngPacker_autogen/include/ui_noimgwidget.h | ${cmake_ninja_workdir}CMakeFiles/PngPacker_autogen ${cmake_ninja_workdir}PngPacker_autogen/include/ui_mainwindow.h ${cmake_ninja_workdir}PngPacker_autogen/include/ui_noimgwidget.h: phony PngPacker_autogen/timestamp || PngPacker_autogen_timestamp_deps
+build CMakeFiles/PngPacker_autogen PngPacker_autogen/include/ui_mainwindow.h | ${cmake_ninja_workdir}CMakeFiles/PngPacker_autogen ${cmake_ninja_workdir}PngPacker_autogen/include/ui_mainwindow.h: phony PngPacker_autogen/timestamp || PngPacker_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.

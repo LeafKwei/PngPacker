@@ -33,7 +33,7 @@
     </property>
     <addaction name="act_pack"/>
     <addaction name="act_unpack"/>
-    <addaction name="act_saveas"/>
+    <addaction name="act_save"/>
     <addaction name="act_quit"/>
    </widget>
    <widget class="QMenu" name="menu_edit">
@@ -56,25 +56,40 @@
    <property name="text">
     <string>打包</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="act_unpack">
    <property name="text">
     <string>解包</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="act_quit">
    <property name="text">
     <string>退出</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
   </action>
-  <action name="act_saveas">
+  <action name="act_save">
    <property name="text">
-    <string>另存为</string>
+    <string>保存</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="action">
    <property name="text">
     <string>删除</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
