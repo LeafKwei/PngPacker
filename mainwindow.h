@@ -5,6 +5,8 @@
 #include <QStackedWidget>
 #include <QHBoxLayout>
 #include "listwidget.h"
+#include "packeddialog.h"
+#include "unpackeddialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,13 +26,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void do_itemClicked(QListWidgetItem *item);
-    void do_itemRightClicked(QListWidgetItem *item, QPointF clickedPos);
-    void do_menuActionTriggered(QAction *action);
-    void do_menuFileActionTriggered(QAction *action);
-    void do_menuEditActionTriggered(QAction *action);
-    void do_menuHelpActionTriggered(QAction *action);
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
@@ -38,9 +35,12 @@ private:
     QWidget *m_centralWidget;
     QStackedWidget *m_stackedWidget;
     ListWidget *m_listWidget;
+    PackedDialog *m_packedDialog;
+    UnpackedDialog *m_unpackedDialog;
     QHBoxLayout *m_mainLayout;
     QMenu *m_hoverMenu;
     MainWindowState m_windowState;
+    QImage m_backgroundImage;
     
     void initUi();
     void initMenuBar();
@@ -54,5 +54,15 @@ private:
     void act_save();
     void act_quit();
     void act_deleteItem();
+    
+private slots:
+    void do_itemClicked(QListWidgetItem *item);
+    void do_itemRightClicked(QListWidgetItem *item, QPointF clickedPos);
+    void do_menuActionTriggered(QAction *action);
+    void do_menuFileActionTriggered(QAction *action);
+    void do_menuEditActionTriggered(QAction *action);
+    void do_menuHelpActionTriggered(QAction *action);
+    void do_packedButtonClicked(PackedParam param);
+    void do_unpackedButtonClicked(UnpackedParam param);
 };
 #endif // MAINWINDOW_H

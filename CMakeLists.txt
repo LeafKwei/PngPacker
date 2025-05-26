@@ -27,6 +27,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 		
 		listwidget.h listwidget.cpp
 		defaultwidget.h defaultwidget.cpp
+		packeddialog.h packeddialog.cpp
+		unpackeddialog.h unpackeddialog.cpp
+		param.h
 		
 		
 		

@@ -13,9 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_windowState(MainWindowState::DEFAULT)
+    , m_backgroundImage(":/res/image/background.jpg")
 {
     ui->setupUi(this);
-    this -> setWindowState(Qt::WindowMaximized);
+    this -> setWindowState(Qt::WindowMaximized);      //窗口最大化
     initUi();
     initConnection();
 }
@@ -29,14 +30,15 @@ void MainWindow::initUi(){
     /* 创建视图对象 */
     m_centralWidget = centralWidget();
     m_defaultWidget = new DefaultWidget(this);
-    m_stackedWidget = new QStackedWidget(this);
-    m_listWidget = new ListWidget(this);
+    m_stackedWidget = new QStackedWidget(m_centralWidget);
+    m_listWidget = new ListWidget(m_centralWidget);
+    m_packedDialog = new PackedDialog();
+    m_unpackedDialog = new UnpackedDialog();
     m_mainLayout = new QHBoxLayout(m_centralWidget);
     m_hoverMenu = new QMenu(m_stackedWidget);
     
     /* 初始化视图 */
     initMenuBar();
-    
     
     /* 添加视图到布局 */
     m_mainLayout -> setSpacing(5);
@@ -117,17 +119,11 @@ MAI MainWindow::textToIndex(const QString &text){
 
 /* ---------------- ACTIONS ------------------*/
 void MainWindow::act_pack(){
-    m_listWidget -> addItem("新建打包");
-    m_stackedWidget -> addWidget(new DefaultWidget());
-    
-    if(m_windowState == MainWindowState::DEFAULT){
-        m_windowState = MainWindowState::HASITEM;
-        setWidgetByState();
-    }
+    m_packedDialog -> show();
 }
 
 void MainWindow::act_unpck(){
-
+    m_unpackedDialog -> show();
 }
 
 void MainWindow::act_save(){
@@ -190,3 +186,23 @@ void MainWindow::do_menuHelpActionTriggered(QAction *action){
     
 }
 
+void MainWindow::do_packedButtonClicked(PackedParam param){
+    if(m_listWidget -> count() > 0){
+        m_windowState = MainWindowState::HASITEM;
+        setWidgetByState();
+    }
+}
+
+void MainWindow::do_unpackedButtonClicked(UnpackedParam param){
+    if(m_listWidget -> count() > 0){
+        m_windowState = MainWindowState::HASITEM;
+        setWidgetByState();
+    }
+}
+
+/* ---------------- OVERRIDE ------------------*/
+void MainWindow::paintEvent(QPaintEvent *event){
+    // QPainter painter(this);
+    // painter.drawImage(0, 0, m_backgroundImage.scaled(width(), height()));
+    // QMainWindow::paintEvent(event);
+}

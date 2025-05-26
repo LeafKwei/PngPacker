@@ -14,9 +14,6 @@ public:
     
 protected:
     void paintEvent(QPaintEvent *event) override;
-    
-private:
-    QImage *m_backgroundImage;
 };
 
 #endif // DEFAULTWIDGET_H
