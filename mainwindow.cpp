@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete m_packedDialog;
+    delete m_unpackedDialog;
 }
 
 void MainWindow::initUi(){
