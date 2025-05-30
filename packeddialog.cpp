@@ -1,9 +1,10 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "packeddialog.h"
 
-PackedDialog::PackedDialog() {
+PackedDialog::PackedDialog(QWidget *parent) {
     initUi();
     initConnection();
 }
@@ -46,6 +47,7 @@ void PackedDialog::initUi(){
 
 void PackedDialog::initConnection(){
     connect(m_pathButton, SIGNAL(clicked(bool)), this, SLOT(do_pathButtonClicked()));
+    connect(m_confirmButton, SIGNAL(clicked(bool)), this, SLOT(do_confirmButtonClicked()));
 }
 
 void PackedDialog::do_pathButtonClicked(){
@@ -53,3 +55,24 @@ void PackedDialog::do_pathButtonClicked(){
         ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     m_pathEdit -> setText(path);
 }
+
+void PackedDialog::do_confirmButtonClicked(){
+    QString name = m_nameEdit -> text();
+    QString path = m_pathEdit -> text();
+
+    if(name.length() == 0 || path.length() == 0){
+        QMessageBox::information(nullptr, tr("提示"), tr("请输入项目名称和目录"), QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    
+    /* 将输入框清空，然后隐藏窗口 */
+    m_nameEdit -> setText("");
+    m_pathEdit -> setText("");
+    close();
+
+    PackedParam param;
+    param.name = name;
+    param.dir = path;
+    emit SIGPacked(param);
+}
+

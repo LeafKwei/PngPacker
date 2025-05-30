@@ -13,7 +13,7 @@ class PackedDialog : public QDialog
 {
     Q_OBJECT
 public:
-    PackedDialog();
+    PackedDialog(QWidget *parent=nullptr);
     
 private:
     QVBoxLayout *m_mainlayout;
@@ -31,7 +31,7 @@ private:
     void initConnection();
 
 signals:
-    void packedButtonClicked(PackedParam param);
+    void SIGPacked(PackedParam param);
     
 private slots:
     void do_pathButtonClicked();

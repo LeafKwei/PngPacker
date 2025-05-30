@@ -62,7 +62,7 @@ private slots:
     void do_menuFileActionTriggered(QAction *action);
     void do_menuEditActionTriggered(QAction *action);
     void do_menuHelpActionTriggered(QAction *action);
-    void do_packedButtonClicked(PackedParam param);
-    void do_unpackedButtonClicked(UnpackedParam param);
+    void do_SIGPacked(PackedParam param);
+    void do_SIGUnpacked(UnpackedParam param);
 };
 #endif // MAINWINDOW_H
