@@ -20,7 +20,7 @@ void PackedDialog::initUi(){
     m_nameLabel -> setText(tr("名称"));
     m_nameEdit -> setPlaceholderText(tr("请输入项目名称"));
     m_pathLabel -> setText(tr("路径"));
-    m_pathEdit -> setPlaceholderText(tr("请输入或选择待打包图片所在路径"));
+    m_pathEdit -> setPlaceholderText(tr("请输入或选择图片目录"));
     m_pathButton -> setText(tr("选择"));
     m_confirmButton -> setText(tr("确认"));
     
@@ -42,6 +42,7 @@ void PackedDialog::initUi(){
     m_mainlayout -> addLayout(m_pathLineLayout);
     m_mainlayout -> addLayout(m_optionLineLayout);
     
+    setWindowTitle("打包");
     resize(QGuiApplication::primaryScreen() -> availableSize() * 0.5);
 }
 

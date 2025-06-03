@@ -14,7 +14,7 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-enum class MainWindowState{DEFAULT, HASITEM};
+enum class MainWindowState{INIT, DEFAULT, HASITEM};
 enum class MainWindowActIndex{NONE, PACK, UNPACK, SAVE, QUIT, DELETEITEM};
 typedef MainWindowActIndex MAI; //缩短函数原型
 
@@ -33,8 +33,8 @@ private:
     Ui::MainWindow *ui;
     QWidget *m_defaultWidget;
     QWidget *m_centralWidget;
-    QStackedWidget *m_stackedWidget;
-    ListWidget *m_listWidget;
+    QStackedWidget *m_projectWindows;
+    ListWidget *m_projectItems;
     PackedDialog *m_packedDialog;
     UnpackedDialog *m_unpackedDialog;
     QHBoxLayout *m_mainLayout;
@@ -43,9 +43,10 @@ private:
     QImage m_backgroundImage;
     
     void initUi();
-    void initMenuBar();
     void initConnection();
-    void setWidgetByState();
+    void initMenuBar();
+    void initBackground();
+    void setWidgetByState(MainWindowState state);
     void deleteCurrentItem();
     MAI textToIndex(const QString &text);
     

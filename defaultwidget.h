@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QImage>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QPaintEvent>
 
 class DefaultWidget : public QWidget
@@ -14,6 +17,14 @@ public:
     
 protected:
     void paintEvent(QPaintEvent *event) override;
+    
+private:
+    QVBoxLayout *m_mainlayout;
+    QHBoxLayout *m_tipslayout;
+    QLabel *m_tips;
+
+    void initUi();
+    void initConnection();
 };
 
 #endif // DEFAULTWIDGET_H

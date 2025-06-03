@@ -5,18 +5,20 @@
 #include <QTextEdit>
 #include "listwidget.h"
 #include "mainwindow.h"
-#include "noimgwidget.h"
 #include "defaultwidget.h"
+#include "packedwidget.h"
+#include "unpackedwidget.h"
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , m_windowState(MainWindowState::DEFAULT)
+    , m_windowState(MainWindowState::INIT)
     , m_backgroundImage(":/res/image/background.jpg")
 {
     ui->setupUi(this);
     this -> setWindowState(Qt::WindowMaximized);      //窗口最大化
+    
     initUi();
     initConnection();
 }
@@ -32,35 +34,32 @@ void MainWindow::initUi(){
     /* 创建视图对象 */
     m_centralWidget = centralWidget();
     m_defaultWidget = new DefaultWidget(this);
-    m_stackedWidget = new QStackedWidget(m_centralWidget);
-    m_listWidget = new ListWidget(m_centralWidget);
+    m_projectWindows = new QStackedWidget(m_centralWidget);
+    m_projectItems = new ListWidget(m_centralWidget);
     m_packedDialog = new PackedDialog();
     m_unpackedDialog = new UnpackedDialog();
     m_mainLayout = new QHBoxLayout(m_centralWidget);
-    m_hoverMenu = new QMenu(m_stackedWidget);
+    m_hoverMenu = new QMenu(m_projectWindows);
     
     /* 初始化视图 */
     initMenuBar();
+    initBackground();
     
     /* 添加视图到布局 */
     m_mainLayout -> setSpacing(5);
-    m_mainLayout -> addWidget(m_listWidget);
-    m_mainLayout -> addWidget(m_stackedWidget);
-    m_mainLayout -> setStretchFactor(m_listWidget, 1);
-    m_mainLayout -> setStretchFactor(m_stackedWidget, 3);
+    m_mainLayout -> addWidget(m_projectItems);
+    m_mainLayout -> addWidget(m_projectWindows);
+    m_mainLayout -> setStretchFactor(m_projectItems, 1);
+    m_mainLayout -> setStretchFactor(m_projectWindows, 3);
     
     /* 根据窗口界面设置窗口 */
-    setWidgetByState();
-}
-
-void MainWindow::initMenuBar(){
-    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
+    setWidgetByState(MainWindowState::DEFAULT);
 }
 
 void MainWindow::initConnection(){
-    connect(m_listWidget, SIGNAL(currentRowChanged(int)), m_stackedWidget, SLOT(setCurrentIndex(int)));
-    connect(m_listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(do_itemClicked(QListWidgetItem*)));
-    connect(m_listWidget, SIGNAL(itemRightClicked(QListWidgetItem*,QPointF)), this, SLOT(do_itemRightClicked(QListWidgetItem*,QPointF))); //wtf! 在“QListWidgetItem*,QPointF”逗号后面如果存在空格会触发signature is not normalized的警告
+    connect(m_projectItems, SIGNAL(currentRowChanged(int)), m_projectWindows, SLOT(setCurrentIndex(int)));
+    connect(m_projectItems, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(do_itemClicked(QListWidgetItem*)));
+    connect(m_projectItems, SIGNAL(itemRightClicked(QListWidgetItem*,QPointF)), this, SLOT(do_itemRightClicked(QListWidgetItem*,QPointF))); //wtf! 在“QListWidgetItem*,QPointF”逗号后面如果存在空格会触发signature is not normalized的警告
     connect(m_hoverMenu, SIGNAL(triggered(QAction*)), this, SLOT(do_menuActionTriggered(QAction*)));
     
     /* 上边菜单栏 */
@@ -72,25 +71,34 @@ void MainWindow::initConnection(){
     connect(m_packedDialog, SIGNAL(SIGPacked(PackedParam)), this, SLOT(do_SIGPacked(PackedParam)));
 }
 
+void MainWindow::initMenuBar(){
+    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
+}
+
+void MainWindow::initBackground(){
+    
+}
+
 void MainWindow::deleteCurrentItem(){
-    QListWidgetItem *item = m_listWidget -> currentItem();
-    QWidget *widget = m_stackedWidget -> currentWidget();
+    QListWidgetItem *item = m_projectItems -> currentItem();
+    QWidget *widget = m_projectWindows -> currentWidget();
     
     if((!item) || (!widget)) return;
     
-    m_listWidget -> removeItemWidget(item);
-    m_stackedWidget -> removeWidget(widget);
+    m_projectItems -> removeItemWidget(item);
+    m_projectWindows -> removeWidget(widget);
     delete item;
     delete widget;
     
-    if(m_listWidget -> count() == 0){
-        m_windowState = MainWindowState::DEFAULT;
-        setWidgetByState();
+    if(m_projectItems -> count() == 0){
+        setWidgetByState(MainWindowState::DEFAULT);
     }
 }
 
-void MainWindow::setWidgetByState(){
-    switch(m_windowState){
+void MainWindow::setWidgetByState(MainWindowState state){
+    if(m_windowState == state) return;  //当窗口状态未改变时，结束设置
+
+    switch(state){
         case MainWindowState::DEFAULT:
             goto setDefault;
         case MainWindowState::HASITEM:
@@ -100,12 +108,14 @@ void MainWindow::setWidgetByState(){
     }
 
 setDefault:
+    m_windowState = state;
     m_centralWidget = takeCentralWidget(); //获取Widget的所属权，避免在setCentralWidget时被对象树删除
     m_defaultWidget -> setParent(this);
     setCentralWidget(m_defaultWidget);
     return;
 
 setHasItem:
+    m_windowState = state;
     m_defaultWidget = takeCentralWidget();
     m_centralWidget -> setParent(this);
     setCentralWidget(m_centralWidget);
@@ -192,19 +202,20 @@ void MainWindow::do_menuHelpActionTriggered(QAction *action){
 }
 
 void MainWindow::do_SIGPacked(PackedParam param){
-    m_listWidget -> addItem(param.name);
-    m_stackedWidget -> addWidget(new DefaultWidget());
+    m_projectItems -> addItem(param.name);
+    m_projectWindows -> addWidget(new PackedWidget());
     
-    if(m_listWidget -> count() > 0){
-        m_windowState = MainWindowState::HASITEM;
-        setWidgetByState();
+    if(m_projectItems -> count() > 0){
+        setWidgetByState(MainWindowState::HASITEM);
     }
 }
 
 void MainWindow::do_SIGUnpacked(UnpackedParam param){
-    if(m_listWidget -> count() > 0){
-        m_windowState = MainWindowState::HASITEM;
-        setWidgetByState();
+    m_projectItems -> addItem(param.name);
+    m_projectWindows -> addWidget(new UnpackedWidget());
+    
+    if(m_projectItems -> count() > 0){
+        setWidgetByState(MainWindowState::HASITEM);
     }
 }
 

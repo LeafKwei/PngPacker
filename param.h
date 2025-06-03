@@ -8,6 +8,10 @@ struct PackedParam{
     QString dir;
 };
 
-typedef PackedParam UnpackedParam;
+struct UnpackedParam{
+    QString name;
+    QString picsetPath;
+    QString targetPath;
+};
 
 #endif // PARAM_H
