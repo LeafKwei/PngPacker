@@ -10,18 +10,24 @@ PackedDialog::PackedDialog(QWidget *parent) {
 }
 
 void PackedDialog::initUi(){
-    m_nameLabel = new QLabel(this);
-    m_nameEdit = new QLineEdit(this);
-    m_pathLabel = new QLabel(this);
-    m_pathEdit = new QLineEdit(this);
-    m_pathButton = new QPushButton(this);
-    m_confirmButton = new QPushButton(this);
+    m_nameLabel = new QLabel();
+    m_nameEdit = new QLineEdit();
+    m_pngPathLabel = new QLabel();
+    m_pngPathEdit = new QLineEdit();
+    m_pngPathButton = new QPushButton();
+    m_targetPathLabel = new QLabel();
+    m_targetPathEdit = new QLineEdit();
+    m_targetPathButton = new QPushButton();
+    m_confirmButton = new QPushButton();
     
     m_nameLabel -> setText(tr("名称"));
     m_nameEdit -> setPlaceholderText(tr("请输入项目名称"));
-    m_pathLabel -> setText(tr("路径"));
-    m_pathEdit -> setPlaceholderText(tr("请输入或选择图片目录"));
-    m_pathButton -> setText(tr("选择"));
+    m_pngPathLabel -> setText(tr("文件路径"));
+    m_pngPathEdit -> setPlaceholderText(tr("请输入或选择一个目录"));
+    m_pngPathButton -> setText(tr("选择"));
+    m_targetPathLabel -> setText(tr("保存路径"));
+    m_targetPathEdit -> setPlaceholderText(tr("请输入或选择一个目录"));
+    m_targetPathButton -> setText(tr("选择"));
     m_confirmButton -> setText(tr("确认"));
     
     initLayout();
@@ -35,22 +41,27 @@ void PackedDialog::initUi(){
 void PackedDialog::initLayout(){
     m_mainLayout = new QVBoxLayout(this);
     m_nameLineLayout = new QHBoxLayout();
-    m_pathLineLayout = new QHBoxLayout();
+    m_pngPathLineLayout = new QHBoxLayout();
+    m_targetPathLineLayout = new QHBoxLayout();
     m_optionLineLayout = new QHBoxLayout();
 }
 
 void PackedDialog::initFilling(){
     m_nameLineLayout -> addWidget(m_nameLabel);
     m_nameLineLayout -> addWidget(m_nameEdit);
-    m_pathLineLayout -> addWidget(m_pathLabel);
-    m_pathLineLayout -> addWidget(m_pathEdit);
-    m_pathLineLayout -> addWidget(m_pathButton);
+    m_pngPathLineLayout -> addWidget(m_pngPathLabel);
+    m_pngPathLineLayout -> addWidget(m_pngPathEdit);
+    m_pngPathLineLayout -> addWidget(m_pngPathButton);
+    m_targetPathLineLayout -> addWidget(m_targetPathLabel);
+    m_targetPathLineLayout -> addWidget(m_targetPathEdit);
+    m_targetPathLineLayout -> addWidget(m_targetPathButton);
     m_optionLineLayout -> addStretch(1);                 //通过在按钮前后添加拉伸因子限制按钮宽度
     m_optionLineLayout -> addWidget(m_confirmButton);
     m_optionLineLayout -> addStretch(1);
     
     m_mainLayout -> addLayout(m_nameLineLayout);
-    m_mainLayout -> addLayout(m_pathLineLayout);
+    m_mainLayout -> addLayout(m_pngPathLineLayout);
+    m_mainLayout -> addLayout(m_targetPathLineLayout);
     m_mainLayout -> addLayout(m_optionLineLayout);
 }
 
@@ -59,33 +70,43 @@ void PackedDialog::initStyle(){
 }
 
 void PackedDialog::initConnection(){
-    connect(m_pathButton, SIGNAL(clicked(bool)), this, SLOT(do_pathButtonClicked()));
+    connect(m_pngPathButton, SIGNAL(clicked(bool)), this, SLOT(do_pngPathButtonClicked()));
     connect(m_confirmButton, SIGNAL(clicked(bool)), this, SLOT(do_confirmButtonClicked()));
+    connect(m_targetPathButton, SIGNAL(clicked(bool)), this, SLOT(do_targetPathButtonClicked()));
 }
 
-void PackedDialog::do_pathButtonClicked(){
+void PackedDialog::do_pngPathButtonClicked(){
     QString path = QFileDialog::getExistingDirectory(this, tr("请选择一个目录"), 
         ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    m_pathEdit -> setText(path);
+    m_pngPathEdit -> setText(path);
+}
+
+void PackedDialog::do_targetPathButtonClicked(){
+    QString path = QFileDialog::getExistingDirectory(this, tr("请选择一个目录"), 
+            ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    m_targetPathEdit -> setText(path);
 }
 
 void PackedDialog::do_confirmButtonClicked(){
     QString name = m_nameEdit -> text();
-    QString path = m_pathEdit -> text();
+    QString pngPath = m_pngPathEdit -> text();
+    QString targetPath = m_targetPathEdit -> text();
 
-    if(name.length() == 0 || path.length() == 0){
-        QMessageBox::information(nullptr, tr("提示"), tr("请输入项目名称和目录"), QMessageBox::Yes, QMessageBox::Yes);
+    if(name.length() == 0 || pngPath.length() == 0 || targetPath.length() == 0){
+        QMessageBox::information(nullptr, tr("提示"), tr("请输入项目名称和路径"), QMessageBox::Yes, QMessageBox::Yes);
         return;
     }
     
     /* 将输入框清空，然后隐藏窗口 */
-    m_nameEdit -> setText("");
-    m_pathEdit -> setText("");
+    m_nameEdit -> clear();
+    m_pngPathEdit -> clear();
+    m_targetPathEdit -> clear();
     close();
 
     PackedParam param;
     param.name = name;
-    param.dir = path;
+    param.pngPath = pngPath;
+    param.targetPath = targetPath;
     emit SIGPacked(param);
 }
 

@@ -18,13 +18,17 @@ public:
 private:
     QVBoxLayout *m_mainLayout;
     QHBoxLayout *m_nameLineLayout;
-    QHBoxLayout *m_pathLineLayout;
+    QHBoxLayout *m_pngPathLineLayout;
+    QHBoxLayout *m_targetPathLineLayout;
     QHBoxLayout *m_optionLineLayout;
     QLabel *m_nameLabel;
     QLineEdit *m_nameEdit;
-    QLabel *m_pathLabel;
-    QLineEdit *m_pathEdit;
-    QPushButton *m_pathButton;
+    QLabel *m_pngPathLabel;
+    QLineEdit *m_pngPathEdit;
+    QPushButton *m_pngPathButton;
+    QLabel *m_targetPathLabel;
+    QLineEdit *m_targetPathEdit;
+    QPushButton *m_targetPathButton;
     QPushButton *m_confirmButton;
     
     void initUi();
@@ -37,7 +41,8 @@ signals:
     void SIGPacked(PackedParam param);
     
 private slots:
-    void do_pathButtonClicked();
+    void do_pngPathButtonClicked();
+    void do_targetPathButtonClicked();
     void do_confirmButtonClicked();
 };
 

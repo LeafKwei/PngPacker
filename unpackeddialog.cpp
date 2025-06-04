@@ -26,7 +26,7 @@ void UnpackedDialog::initUi(){
     m_picsetPathEdit -> setPlaceholderText(tr("请输入或选择图集路径"));
     m_picsetPathButton -> setText(tr("选择"));
     m_targetPathLabel -> setText(tr("保存路径"));
-    m_targetPathEdit -> setPlaceholderText(tr("请输入或选择保存路径"));
+    m_targetPathEdit -> setPlaceholderText(tr("请输入或选择一个目录"));
     m_targetPathButton -> setText(tr("选择"));
     m_confirmButton -> setText(tr("确定"));
     

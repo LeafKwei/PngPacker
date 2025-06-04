@@ -1,3 +1,7 @@
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
 #include "packedwidget.h"
 
 PackedWidget::PackedWidget(const PackedParam &param, QWidget *parent)
@@ -6,11 +10,12 @@ PackedWidget::PackedWidget(const PackedParam &param, QWidget *parent)
     m_param = param;
     
     initUi();
+    initFileView();
     initConnection();
 }
 
 void PackedWidget::initUi(){
-    m_wgtFileName = new QListWidget();
+    m_wgtFileView = new QListWidget();
     m_btnPack = new QPushButton();
     m_btnAppend = new QPushButton();
     m_btnDelete = new QPushButton();
@@ -47,7 +52,7 @@ void PackedWidget::initFilling(){
     m_bottomLayout -> addLayout(m_optionsLayout);
     m_bottomLayout -> addLayout(m_infosLayout);
     
-    m_mainLayout -> addWidget(m_wgtFileName);
+    m_mainLayout -> addWidget(m_wgtFileView);
     m_mainLayout -> addLayout(m_bottomLayout);
     m_mainLayout -> setStretch(0, 5);
     m_mainLayout -> setStretch(1, 1);
@@ -57,11 +62,46 @@ void PackedWidget::initStyle(){
 
 }
 
-void PackedWidget::initConnection(){
+void PackedWidget::initFileView(){
+    QDir dir(m_param.pngPath);
+    if(!dir.exists()){
+        return;
+    }
+    
+    dir.setFilter(QDir::Files | QDir::NoDotAndDotDot);
+    QFileInfoList files = dir.entryInfoList();
+    
+    for(auto &file : files){
+        m_fileNames.push_back(file.baseName());
+        QListWidgetItem *item = new QListWidgetItem();
+        item -> setText(m_fileNames.last());
+        item -> setData(Qt::UserRole, m_fileNames.size() - 1);
+        m_wgtFileView -> addItem(item);
+    }
+    
+    m_labTotalInfo -> setText(makeTotalInfo());
+}
 
+void PackedWidget::initConnection(){
+    connect(m_btnPack, SIGNAL(clicked(bool)), this, SLOT(do_btnPackClicked()));
+    connect(m_btnAppend, SIGNAL(clicked(bool)), this, SLOT(do_btnAppendClicked()));
+    connect(m_btnDelete, SIGNAL(clicked(bool)), this, SLOT(do_btnDeleteClicked()));
 }
 
 QString PackedWidget::makeTotalInfo(){
-    QString info = tr("总文件数：%1");
-    return info.arg(m_fileNames.size());
+    QString info = tr("总文件数：%1   保存路径：%2");
+    return info.arg(m_fileNames.size()).arg(m_param.targetPath);
+}
+
+/* ---------------- SLOTS ------------------*/
+void PackedWidget::do_btnPackClicked(){
+
+}
+
+void PackedWidget::do_btnAppendClicked(){
+    
+}
+
+void PackedWidget::do_btnDeleteClicked(){
+
 }

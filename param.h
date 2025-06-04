@@ -5,7 +5,8 @@
 
 struct PackedParam{
     QString name;
-    QString dir;
+    QString pngPath;
+    QString targetPath;
 };
 
 struct UnpackedParam{

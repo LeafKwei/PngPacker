@@ -19,10 +19,10 @@ public:
 private:
     PackedParam m_param;
     QVector<QString> m_fileNames;
-    QListWidget *m_wgtFileName;
+    QListWidget *m_wgtFileView;
     QPushButton *m_btnPack;
-    QPushButton *m_btnDelete;
     QPushButton *m_btnAppend;
+    QPushButton *m_btnDelete;
     QLabel *m_labTotalInfo;
     QVBoxLayout *m_mainLayout;
     QVBoxLayout *m_bottomLayout;
@@ -33,11 +33,15 @@ private:
     void initLayout();
     void initFilling();
     void initStyle();
+    void initFileView();
     void initConnection();
     
     QString makeTotalInfo();
-
-signals:
+    
+private slots:
+    void do_btnPackClicked();
+    void do_btnAppendClicked();
+    void do_btnDeleteClicked();
 };
 
 #endif // PACKEDWIDGET_H
