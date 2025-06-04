@@ -16,7 +16,7 @@ public:
     PackedDialog(QWidget *parent=nullptr);
     
 private:
-    QVBoxLayout *m_mainlayout;
+    QVBoxLayout *m_mainLayout;
     QHBoxLayout *m_nameLineLayout;
     QHBoxLayout *m_pathLineLayout;
     QHBoxLayout *m_optionLineLayout;
@@ -28,6 +28,9 @@ private:
     QPushButton *m_confirmButton;
     
     void initUi();
+    void initLayout();
+    void initFilling();
+    void initStyle();
     void initConnection();
 
 signals:

@@ -16,7 +16,7 @@ public:
     UnpackedDialog(QWidget *parent=nullptr);
     
 private:
-    QVBoxLayout *m_mainlayout;
+    QVBoxLayout *m_mainLayout;
     QHBoxLayout *m_nameLineLayout;
     QHBoxLayout *m_picsetPathLineLayout;
     QHBoxLayout *m_targetPathLineLayout;
@@ -32,6 +32,9 @@ private:
     QPushButton *m_confirmButton;
     
     void initUi();
+    void initLayout();
+    void initFilling();
+    void initStyle();
     void initConnection();
 
 signals:

@@ -38,22 +38,34 @@ void MainWindow::initUi(){
     m_projectItems = new ListWidget(m_centralWidget);
     m_packedDialog = new PackedDialog();
     m_unpackedDialog = new UnpackedDialog();
-    m_mainLayout = new QHBoxLayout(m_centralWidget);
     m_hoverMenu = new QMenu(m_projectWindows);
     
-    /* 初始化视图 */
-    initMenuBar();
-    initBackground();
+    /* 菜单栏 */
+    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
     
-    /* 添加视图到布局 */
+    /* 对界面的细节初始化 */
+    initLayout();  //布局
+    initFilling(); //填充组件
+    initStyle();   //界面样式
+    
+    /* 根据窗口界面设置窗口 */
+    setWidgetByState(MainWindowState::DEFAULT);
+}
+
+void MainWindow::initLayout(){
+    m_mainLayout = new QHBoxLayout(m_centralWidget);
     m_mainLayout -> setSpacing(5);
+}
+
+void MainWindow::initFilling(){
     m_mainLayout -> addWidget(m_projectItems);
     m_mainLayout -> addWidget(m_projectWindows);
     m_mainLayout -> setStretchFactor(m_projectItems, 1);
     m_mainLayout -> setStretchFactor(m_projectWindows, 3);
-    
-    /* 根据窗口界面设置窗口 */
-    setWidgetByState(MainWindowState::DEFAULT);
+}
+
+void MainWindow::initStyle(){
+
 }
 
 void MainWindow::initConnection(){
@@ -69,14 +81,6 @@ void MainWindow::initConnection(){
     
     /* 打包窗口 */
     connect(m_packedDialog, SIGNAL(SIGPacked(PackedParam)), this, SLOT(do_SIGPacked(PackedParam)));
-}
-
-void MainWindow::initMenuBar(){
-    m_hoverMenu -> addAction(new QAction(tr("删除"), m_hoverMenu));
-}
-
-void MainWindow::initBackground(){
-    
 }
 
 void MainWindow::deleteCurrentItem(){
@@ -203,7 +207,7 @@ void MainWindow::do_menuHelpActionTriggered(QAction *action){
 
 void MainWindow::do_SIGPacked(PackedParam param){
     m_projectItems -> addItem(param.name);
-    m_projectWindows -> addWidget(new PackedWidget());
+    m_projectWindows -> addWidget(new PackedWidget(param));
     
     if(m_projectItems -> count() > 0){
         setWidgetByState(MainWindowState::HASITEM);

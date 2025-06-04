@@ -19,11 +19,14 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     
 private:
-    QVBoxLayout *m_mainlayout;
-    QHBoxLayout *m_tipslayout;
+    QVBoxLayout *m_mainLayout;
+    QHBoxLayout *m_tipsLayout;
     QLabel *m_tips;
 
     void initUi();
+    void initLayout();
+    void initFilling();
+    void initStyle();
     void initConnection();
 };
 

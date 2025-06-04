@@ -24,11 +24,22 @@ void PackedDialog::initUi(){
     m_pathButton -> setText(tr("选择"));
     m_confirmButton -> setText(tr("确认"));
     
-    m_mainlayout = new QVBoxLayout(this);
+    initLayout();
+    initFilling();
+    initStyle();
+    
+    setWindowTitle("打包");
+    resize(QGuiApplication::primaryScreen() -> availableSize() * 0.5);
+}
+
+void PackedDialog::initLayout(){
+    m_mainLayout = new QVBoxLayout(this);
     m_nameLineLayout = new QHBoxLayout();
     m_pathLineLayout = new QHBoxLayout();
     m_optionLineLayout = new QHBoxLayout();
-    
+}
+
+void PackedDialog::initFilling(){
     m_nameLineLayout -> addWidget(m_nameLabel);
     m_nameLineLayout -> addWidget(m_nameEdit);
     m_pathLineLayout -> addWidget(m_pathLabel);
@@ -38,12 +49,13 @@ void PackedDialog::initUi(){
     m_optionLineLayout -> addWidget(m_confirmButton);
     m_optionLineLayout -> addStretch(1);
     
-    m_mainlayout -> addLayout(m_nameLineLayout);
-    m_mainlayout -> addLayout(m_pathLineLayout);
-    m_mainlayout -> addLayout(m_optionLineLayout);
-    
-    setWindowTitle("打包");
-    resize(QGuiApplication::primaryScreen() -> availableSize() * 0.5);
+    m_mainLayout -> addLayout(m_nameLineLayout);
+    m_mainLayout -> addLayout(m_pathLineLayout);
+    m_mainLayout -> addLayout(m_optionLineLayout);
+}
+
+void PackedDialog::initStyle(){
+
 }
 
 void PackedDialog::initConnection(){

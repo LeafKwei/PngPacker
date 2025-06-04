@@ -43,9 +43,10 @@ private:
     QImage m_backgroundImage;
     
     void initUi();
+    void initLayout();
+    void initFilling();
+    void initStyle();
     void initConnection();
-    void initMenuBar();
-    void initBackground();
     void setWidgetByState(MainWindowState state);
     void deleteCurrentItem();
     MAI textToIndex(const QString &text);

@@ -30,12 +30,23 @@ void UnpackedDialog::initUi(){
     m_targetPathButton -> setText(tr("选择"));
     m_confirmButton -> setText(tr("确定"));
     
-    m_mainlayout = new QVBoxLayout(this);
+    initLayout();
+    initFilling();
+    initStyle();
+    
+    setWindowTitle(tr("解包"));
+    resize(QGuiApplication::primaryScreen() -> availableSize() * 0.5);
+}
+
+void UnpackedDialog::initLayout(){
+    m_mainLayout = new QVBoxLayout(this);
     m_nameLineLayout = new QHBoxLayout();
     m_picsetPathLineLayout = new QHBoxLayout();
     m_targetPathLineLayout = new QHBoxLayout();
     m_optionLineLayout = new QHBoxLayout();
-    
+}
+
+void UnpackedDialog::initFilling(){
     m_nameLineLayout -> addWidget(m_nameLabel);
     m_nameLineLayout -> addWidget(m_nameEdit);
     m_picsetPathLineLayout -> addWidget(m_picsetPathLabel);
@@ -48,13 +59,14 @@ void UnpackedDialog::initUi(){
     m_optionLineLayout -> addWidget(m_confirmButton);
     m_optionLineLayout -> addStretch(1);
     
-    m_mainlayout -> addLayout(m_nameLineLayout);
-    m_mainlayout -> addLayout(m_picsetPathLineLayout);
-    m_mainlayout -> addLayout(m_targetPathLineLayout);
-    m_mainlayout -> addLayout(m_optionLineLayout);
-    
-    setWindowTitle(tr("解包"));
-    resize(QGuiApplication::primaryScreen() -> availableSize() * 0.5);
+    m_mainLayout -> addLayout(m_nameLineLayout);
+    m_mainLayout -> addLayout(m_picsetPathLineLayout);
+    m_mainLayout -> addLayout(m_targetPathLineLayout);
+    m_mainLayout -> addLayout(m_optionLineLayout);
+}
+
+void UnpackedDialog::initStyle(){
+
 }
 
 void UnpackedDialog::initConnection(){
