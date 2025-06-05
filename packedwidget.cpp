@@ -71,12 +71,14 @@ void PackedWidget::initFileView(){
     dir.setFilter(QDir::Files | QDir::NoDotAndDotDot);
     QFileInfoList files = dir.entryInfoList();
     
+    /* 遍历每个文件 */
     for(auto &file : files){
-        m_fileNames.push_back(file.baseName());
-        QListWidgetItem *item = new QListWidgetItem();
-        item -> setText(m_fileNames.last());
-        item -> setData(Qt::UserRole, m_fileNames.size() - 1);
-        m_wgtFileView -> addItem(item);
+        /* 如果文件是png文件，则保存到List视图 */
+        if(isCorrectName(file.baseName())){
+            QListWidgetItem *item = new QListWidgetItem();
+            item -> setText(file.baseName());
+            m_wgtFileView -> addItem(item);
+        }
     }
     
     m_labTotalInfo -> setText(makeTotalInfo());
@@ -90,7 +92,11 @@ void PackedWidget::initConnection(){
 
 QString PackedWidget::makeTotalInfo(){
     QString info = tr("总文件数：%1   保存路径：%2");
-    return info.arg(m_fileNames.size()).arg(m_param.targetPath);
+    return info.arg(m_wgtFileView -> count()).arg(m_param.targetPath);
+}
+
+bool PackedWidget::isCorrectName(const QString &name){
+    return true;
 }
 
 /* ---------------- SLOTS ------------------*/
@@ -99,7 +105,15 @@ void PackedWidget::do_btnPackClicked(){
 }
 
 void PackedWidget::do_btnAppendClicked(){
+    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("选择图片"), ".", tr("Images (*.png)"));
+    if(!isCorrectName(fileName)){
+        QMessageBox::information(nullptr, tr("提示"), tr("未选择正确的文件"), QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
     
+    QListWidgetItem *item = new QListWidgetItem();
+    item -> setText(fileName);
+    m_wgtFileView -> addItem(item);
 }
 
 void PackedWidget::do_btnDeleteClicked(){

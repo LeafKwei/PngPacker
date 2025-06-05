@@ -18,7 +18,6 @@ public:
 
 private:
     PackedParam m_param;
-    QVector<QString> m_fileNames;
     QListWidget *m_wgtFileView;
     QPushButton *m_btnPack;
     QPushButton *m_btnAppend;
@@ -37,6 +36,7 @@ private:
     void initConnection();
     
     QString makeTotalInfo();
+    bool isCorrectName(const QString &name);
     
 private slots:
     void do_btnPackClicked();
