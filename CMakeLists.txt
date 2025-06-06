@@ -25,13 +25,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
 		resource.qrc
 		
-		listwidget.h listwidget.cpp
+		projectlistwidget.h projectlistwidget.cpp
 		defaultwidget.h defaultwidget.cpp
 		packeddialog.h packeddialog.cpp
 		unpackeddialog.h unpackeddialog.cpp
 		param.h
 		packedwidget.h packedwidget.cpp
 		unpackedwidget.h unpackedwidget.cpp
+		
 		
 		
 		

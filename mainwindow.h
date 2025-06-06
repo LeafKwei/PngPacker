@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QHBoxLayout>
-#include "listwidget.h"
+#include "projectlistwidget.h"
 #include "packeddialog.h"
 #include "unpackeddialog.h"
 
@@ -34,7 +34,7 @@ private:
     QWidget *m_defaultWidget;
     QWidget *m_centralWidget;
     QStackedWidget *m_projectWindows;
-    ListWidget *m_projectItems;
+    ProjectListWidget *m_projectItems;
     PackedDialog *m_packedDialog;
     UnpackedDialog *m_unpackedDialog;
     QHBoxLayout *m_mainLayout;

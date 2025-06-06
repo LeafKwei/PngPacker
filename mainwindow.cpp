@@ -3,7 +3,7 @@
 #include <QImage>
 #include <QSplitter>
 #include <QTextEdit>
-#include "listwidget.h"
+#include "projectlistwidget.h"
 #include "mainwindow.h"
 #include "defaultwidget.h"
 #include "packedwidget.h"
@@ -35,7 +35,7 @@ void MainWindow::initUi(){
     m_centralWidget = centralWidget();
     m_defaultWidget = new DefaultWidget(this);
     m_projectWindows = new QStackedWidget(m_centralWidget);
-    m_projectItems = new ListWidget(m_centralWidget);
+    m_projectItems = new ProjectListWidget(m_centralWidget);
     m_packedDialog = new PackedDialog();
     m_unpackedDialog = new UnpackedDialog();
     m_hoverMenu = new QMenu(m_projectWindows);

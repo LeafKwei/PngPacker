@@ -73,15 +73,17 @@ void PackedWidget::initFileView(){
     
     /* 遍历每个文件 */
     for(auto &file : files){
+        QString name = cutFileName(file.absoluteFilePath());
         /* 如果文件是png文件，则保存到List视图 */
-        if(isCorrectName(file.baseName())){
+        if(isCorrectFileName(name)){
             QListWidgetItem *item = new QListWidgetItem();
-            item -> setText(file.baseName());
+            item -> setText(name);
+            item -> setData(Qt::UserRole, file.absoluteFilePath());
             m_wgtFileView -> addItem(item);
         }
     }
     
-    m_labTotalInfo -> setText(makeTotalInfo());
+    updateTotalInfo();
 }
 
 void PackedWidget::initConnection(){
@@ -95,8 +97,17 @@ QString PackedWidget::makeTotalInfo(){
     return info.arg(m_wgtFileView -> count()).arg(m_param.targetPath);
 }
 
-bool PackedWidget::isCorrectName(const QString &name){
-    return true;
+QString PackedWidget::cutFileName(const QString &name){
+    QStringList parts = name.split(u'/');
+    return parts.at(parts.size() - 1);
+}
+
+bool PackedWidget::isCorrectFileName(const QString &name){
+    return name.endsWith(tr(".png"));
+}
+
+void PackedWidget::updateTotalInfo(){
+    m_labTotalInfo -> setText(makeTotalInfo());
 }
 
 /* ---------------- SLOTS ------------------*/
@@ -106,16 +117,23 @@ void PackedWidget::do_btnPackClicked(){
 
 void PackedWidget::do_btnAppendClicked(){
     QString fileName = QFileDialog::getOpenFileName(nullptr, tr("选择图片"), ".", tr("Images (*.png)"));
-    if(!isCorrectName(fileName)){
+    if(!isCorrectFileName(fileName)){
         QMessageBox::information(nullptr, tr("提示"), tr("未选择正确的文件"), QMessageBox::Yes, QMessageBox::Yes);
         return;
     }
     
     QListWidgetItem *item = new QListWidgetItem();
-    item -> setText(fileName);
+    item -> setText(cutFileName(fileName));
+    item -> setData(Qt::UserRole, fileName);
     m_wgtFileView -> addItem(item);
+    updateTotalInfo();
 }
 
 void PackedWidget::do_btnDeleteClicked(){
-
+    QListWidgetItem *item = m_wgtFileView -> currentItem();
+    if(item == nullptr) return;
+    
+    m_wgtFileView -> removeItemWidget(item);
+    delete item;
+    updateTotalInfo();
 }

@@ -1,14 +1,14 @@
-#ifndef LISTWIDGET_H
-#define LISTWIDGET_H
+#ifndef PROJECTLISTWIDGET_H
+#define PROJECTLISTWIDGET_H
 
 #include <QListWidget>
 #include <QMouseEvent>
 
-class ListWidget : public QListWidget
+class ProjectListWidget : public QListWidget
 {
     Q_OBJECT
 public:
-    ListWidget(QWidget *parent=nullptr);
+    ProjectListWidget(QWidget *parent=nullptr);
         
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -18,4 +18,4 @@ signals:
     void itemRemoved();
 };
 
-#endif // LISTWIDGET_H
+#endif // PROJECTLISTWIDGET_H

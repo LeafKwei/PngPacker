@@ -1,11 +1,11 @@
 #include <QMouseEvent>
-#include "listwidget.h"
+#include "projectlistwidget.h"
 
-ListWidget::ListWidget(QWidget *parent) : QListWidget(parent) {
+ProjectListWidget::ProjectListWidget(QWidget *parent) : QListWidget(parent) {
 
 }
 
-void ListWidget::mousePressEvent(QMouseEvent *event){
+void ProjectListWidget::mousePressEvent(QMouseEvent *event){
     QListWidget::mousePressEvent(event);
     if(event -> button() == Qt::RightButton){
         QPointF qp = event -> position();

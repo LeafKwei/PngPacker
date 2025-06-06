@@ -36,7 +36,9 @@ private:
     void initConnection();
     
     QString makeTotalInfo();
-    bool isCorrectName(const QString &name);
+    QString cutFileName(const QString &name);
+    bool isCorrectFileName(const QString &name);
+    void updateTotalInfo();
     
 private slots:
     void do_btnPackClicked();
