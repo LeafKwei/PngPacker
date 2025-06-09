@@ -70,17 +70,42 @@ void UnpackedDialog::initStyle(){
 }
 
 void UnpackedDialog::initConnection(){
-
+    connect(m_picsetPathButton, SIGNAL(clicked(bool)), this, SLOT(do_picsetPathButtonClicked()));
+    connect(m_targetPathButton, SIGNAL(clicked(bool)), this, SLOT(do_targetPathButtonClicked()));
+    connect(m_confirmButton, SIGNAL(clicked(bool)), this ,SLOT(do_confirmButtonClicked()));
 }
 
 void UnpackedDialog::do_picsetPathButtonClicked(){
-
+    QString path = QFileDialog::getOpenFileName(this, tr("请选择一个文件"), 
+        ".", "Images (*.png)", nullptr, QFileDialog::DontResolveSymlinks);
+    m_picsetPathEdit -> setText(path);
 }
 
 void UnpackedDialog::do_targetPathButtonClicked(){
-
+    QString path = QFileDialog::getExistingDirectory(this, tr("请选择一个目录"), 
+        ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    m_targetPathEdit -> setText(path);
 }
 
 void UnpackedDialog::do_confirmButtonClicked(){
+    QString name = m_nameEdit -> text();
+    QString picsetPath = m_picsetPathEdit -> text();
+    QString targetPath = m_targetPathEdit -> text();
 
+    if(name.length() == 0 || picsetPath.length() == 0 || targetPath.length() == 0){
+        QMessageBox::information(nullptr, tr("提示"), tr("请输入项目名称和路径"), QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    
+    /* 将输入框清空，然后隐藏窗口 */
+    m_nameEdit -> clear();
+    m_picsetPathEdit -> clear();
+    m_targetPathEdit -> clear();
+    close();
+
+    UnpackedParam param;
+    param.name = name;
+    param.picsetPath = picsetPath;
+    param.targetPath = targetPath;
+    emit SIGUnpacked(param);
 }

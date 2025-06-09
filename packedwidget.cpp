@@ -20,11 +20,13 @@ void PackedWidget::initUi(){
     m_btnAppend = new QPushButton();
     m_btnDelete = new QPushButton();
     m_labTotalInfo = new QLabel();
+    m_labResultInfo = new QLabel();
     
     m_btnPack -> setText(tr("打包"));
     m_btnAppend -> setText(tr("添加"));
     m_btnDelete -> setText(tr("删除"));
-    m_labTotalInfo -> setText(makeTotalInfo());
+    showTotalInfo();
+    showResultInfo(tr("未打包"), Code::INIT);
     
     initLayout();
     initFilling();
@@ -35,7 +37,7 @@ void PackedWidget::initLayout(){
     m_mainLayout = new QVBoxLayout(this);
     m_bottomLayout = new QVBoxLayout();
     m_optionsLayout = new QHBoxLayout();
-    m_infosLayout = new QHBoxLayout();
+    m_infosLayout = new QVBoxLayout();
 }
 
 void PackedWidget::initFilling(){
@@ -45,12 +47,12 @@ void PackedWidget::initFilling(){
     m_optionsLayout -> addWidget(m_btnDelete);
     m_optionsLayout -> addStretch(1);
     
-    m_infosLayout -> addStretch(1);
     m_infosLayout -> addWidget(m_labTotalInfo);
-    m_infosLayout -> addStretch(1);
+    m_infosLayout -> addWidget(m_labResultInfo);
     
     m_bottomLayout -> addLayout(m_optionsLayout);
     m_bottomLayout -> addLayout(m_infosLayout);
+    m_bottomLayout -> setSpacing(50);
     
     m_mainLayout -> addWidget(m_wgtFileView);
     m_mainLayout -> addLayout(m_bottomLayout);
@@ -83,7 +85,7 @@ void PackedWidget::initFileView(){
         }
     }
     
-    updateTotalInfo();
+    showTotalInfo();
 }
 
 void PackedWidget::initConnection(){
@@ -92,9 +94,34 @@ void PackedWidget::initConnection(){
     connect(m_btnDelete, SIGNAL(clicked(bool)), this, SLOT(do_btnDeleteClicked()));
 }
 
-QString PackedWidget::makeTotalInfo(){
+void PackedWidget::showTotalInfo(){
     QString info = tr("总文件数：%1   保存路径：%2");
-    return info.arg(m_wgtFileView -> count()).arg(m_param.targetPath);
+    QString tmp = info.arg(m_wgtFileView -> count()).arg(m_param.targetPath);
+    m_labTotalInfo -> setText(tmp);
+}
+
+void PackedWidget::showResultInfo(const QString &baseInfo, Code code){
+    QString info = tr("结果：");
+    info += baseInfo;
+    m_labResultInfo -> setText(info);
+    
+    QPalette pal = m_labResultInfo -> palette();
+    switch(code){
+        case Code::INIT:
+            pal.setColor(QPalette::WindowText, QColor(0, 0, 0, 255));
+            m_labResultInfo -> setPalette(pal);
+            break;
+        case Code::OK:
+            pal.setColor(QPalette::WindowText, QColor(0, 255, 0, 255));
+            m_labResultInfo -> setPalette(pal);
+            break;
+        case Code::ERR:
+            pal.setColor(QPalette::WindowText, QColor(255, 0, 0, 255));
+            m_labResultInfo -> setPalette(pal);
+            break;
+        default:
+            break;
+    }
 }
 
 QString PackedWidget::cutFileName(const QString &name){
@@ -104,10 +131,6 @@ QString PackedWidget::cutFileName(const QString &name){
 
 bool PackedWidget::isCorrectFileName(const QString &name){
     return name.endsWith(tr(".png"));
-}
-
-void PackedWidget::updateTotalInfo(){
-    m_labTotalInfo -> setText(makeTotalInfo());
 }
 
 /* ---------------- SLOTS ------------------*/
@@ -126,7 +149,7 @@ void PackedWidget::do_btnAppendClicked(){
     item -> setText(cutFileName(fileName));
     item -> setData(Qt::UserRole, fileName);
     m_wgtFileView -> addItem(item);
-    updateTotalInfo();
+    showTotalInfo();
 }
 
 void PackedWidget::do_btnDeleteClicked(){
@@ -135,5 +158,5 @@ void PackedWidget::do_btnDeleteClicked(){
     
     m_wgtFileView -> removeItemWidget(item);
     delete item;
-    updateTotalInfo();
+    showTotalInfo();
 }

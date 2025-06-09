@@ -32,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 		param.h
 		packedwidget.h packedwidget.cpp
 		unpackedwidget.h unpackedwidget.cpp
+		code.h
 		
 		
 		

@@ -79,8 +79,9 @@ void MainWindow::initConnection(){
     connect(ui -> menu_edit, SIGNAL(triggered(QAction*)), this, SLOT(do_menuEditActionTriggered(QAction*)));
     connect(ui -> menu_help, SIGNAL(triggered(QAction*)), this, SLOT(do_menuHelpActionTriggered(QAction*)));
     
-    /* 打包窗口 */
+    /* 打包/解包窗口 */
     connect(m_packedDialog, SIGNAL(SIGPacked(PackedParam)), this, SLOT(do_SIGPacked(PackedParam)));
+    connect(m_unpackedDialog, SIGNAL(SIGUnpacked(UnpackedParam)), this, SLOT(do_SIGUnpacked(UnpackedParam)));
 }
 
 void MainWindow::deleteCurrentItem(){
@@ -216,7 +217,7 @@ void MainWindow::do_SIGPacked(PackedParam param){
 
 void MainWindow::do_SIGUnpacked(UnpackedParam param){
     m_projectItems -> addItem(param.name);
-    m_projectWindows -> addWidget(new UnpackedWidget());
+    m_projectWindows -> addWidget(new UnpackedWidget(param));
     
     if(m_projectItems -> count() > 0){
         setWidgetByState(MainWindowState::HASITEM);

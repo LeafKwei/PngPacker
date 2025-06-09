@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "param.h"
+#include "code.h"
 
 class PackedWidget : public QWidget
 {
@@ -23,10 +24,11 @@ private:
     QPushButton *m_btnAppend;
     QPushButton *m_btnDelete;
     QLabel *m_labTotalInfo;
+    QLabel *m_labResultInfo;
     QVBoxLayout *m_mainLayout;
     QVBoxLayout *m_bottomLayout;
     QHBoxLayout *m_optionsLayout;
-    QHBoxLayout *m_infosLayout;
+    QVBoxLayout *m_infosLayout;
     
     void initUi();
     void initLayout();
@@ -35,7 +37,8 @@ private:
     void initFileView();
     void initConnection();
     
-    QString makeTotalInfo();
+    void showTotalInfo();
+    void showResultInfo(const QString &baseInfo, Code code);
     QString cutFileName(const QString &name);
     bool isCorrectFileName(const QString &name);
     void updateTotalInfo();
