@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
 )
 
+include_directories(".")
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PngPacker
         MANUAL_FINALIZATION
@@ -33,6 +35,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 		packedwidget.h packedwidget.cpp
 		unpackedwidget.h unpackedwidget.cpp
 		code.h
+		qimagereader.h qimagereader.cpp
+		qimagewriter.h qimagewriter.cpp
+		packer/core/VImage.hpp packer/core/VImageReader.hpp packer/core/VImageWriter.hpp packer/core/VLayouter.hpp packer/core/VPacker.hpp packer/core/VProfileReader.hpp packer/core/VProfileWriter.hpp packer/core/VScanner.hpp packer/core/VUnpakcer.hpp packer/data/data.hpp packer/impl/DefaultProfileReader.hpp packer/impl/DefaultProfileWriter.hpp packer/impl/DefaultScanner.hpp packer/impl/Image.hpp packer/impl/ImageReader.hpp packer/impl/ImageWriter.hpp packer/impl/Packer.hpp packer/impl/ScaledLayouter.hpp packer/impl/Unpacker.hpp packer/raii/CharBuffer.hpp packer/raii/FilePtr.hpp packer/util/Bitmap.hpp packer/util/util.hpp packer/packer.hpp
 		
 		
 		
@@ -58,7 +63,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(PngPacker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(PngPacker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets packer)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
