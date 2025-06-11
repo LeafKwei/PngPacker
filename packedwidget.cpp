@@ -3,6 +3,13 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "packedwidget.h"
+#include "qtimagereader.h"
+#include "qtimagewriter.h"
+#include "packer/impl/Packer.hpp"
+#include "packer/impl/DefaultProfileWriter.hpp"
+
+using packer::Packer;
+using packer::DefaultProfileWriter;
 
 PackedWidget::PackedWidget(const PackedParam &param, QWidget *parent)
     : QWidget{parent}
@@ -135,7 +142,21 @@ bool PackedWidget::isCorrectFileName(const QString &name){
 
 /* ---------------- SLOTS ------------------*/
 void PackedWidget::do_btnPackClicked(){
-
+    Packer packer(16, 100);
+    
+    int count = m_wgtFileView -> count();
+    for(int row = 0; row < count; row++){
+        QListWidgetItem *item = m_wgtFileView -> item(row);
+        packer.addImageReader(new QtImageReader(item -> data(Qt::UserRole).toString()));
+    }
+    
+    QString targetImagePath = m_param.targetPath + "/" + m_param.name + ".png";
+    QString targetProfilePath = m_param.targetPath + "/" + m_param.name + ".prf";
+    QtImageWriter iwriter(targetImagePath);
+    DefaultProfileWriter pwriter(targetProfilePath.toStdString());
+    
+    packer.pack();
+    packer.save(iwriter, pwriter);
 }
 
 void PackedWidget::do_btnAppendClicked(){

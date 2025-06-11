@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
 )
 
 include_directories(".")
+link_directories(".")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PngPacker
@@ -35,8 +36,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 		packedwidget.h packedwidget.cpp
 		unpackedwidget.h unpackedwidget.cpp
 		code.h
-		qimagereader.h qimagereader.cpp
-		qimagewriter.h qimagewriter.cpp
+		qtimagereader.h qtimagereader.cpp
+		qtimagewriter.h qtimagewriter.cpp
 		packer/core/VImage.hpp packer/core/VImageReader.hpp packer/core/VImageWriter.hpp packer/core/VLayouter.hpp packer/core/VPacker.hpp packer/core/VProfileReader.hpp packer/core/VProfileWriter.hpp packer/core/VScanner.hpp packer/core/VUnpakcer.hpp packer/data/data.hpp packer/impl/DefaultProfileReader.hpp packer/impl/DefaultProfileWriter.hpp packer/impl/DefaultScanner.hpp packer/impl/Image.hpp packer/impl/ImageReader.hpp packer/impl/ImageWriter.hpp packer/impl/Packer.hpp packer/impl/ScaledLayouter.hpp packer/impl/Unpacker.hpp packer/raii/CharBuffer.hpp packer/raii/FilePtr.hpp packer/util/Bitmap.hpp packer/util/util.hpp packer/packer.hpp
 		
 		

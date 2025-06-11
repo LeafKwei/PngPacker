@@ -1,19 +1,20 @@
-#ifndef QIMAGEREADER_H
-#define QIMAGEREADER_H
+#ifndef QTIMAGEREADER_H
+#define QTIMAGEREADER_H
 
 #include <string>
 #include <QString>
+#include <QImage>
 #include "packer/impl/ImageReader.hpp"
 
 using packer::ImageReader;
 using packer::RGBA;
 using std::string;
 
-class QImageReader : ImageReader
+class QtImageReader : public ImageReader
 {
 public:
-    QImageReader(const QString &path, QString id=QString(""));
-    ~QImageReader();
+    QtImageReader(const QString &path, QString id=QString(""));
+    ~QtImageReader();
     string id() override;
     
 protected:
@@ -29,4 +30,4 @@ private:
     QString generateIdFromPath();
 };
 
-#endif // QIMAGEREADER_H
+#endif // QTIMAGEREADER_H
