@@ -1,4 +1,13 @@
+#include <stdexcept>
 #include "unpackedwidget.h"
+#include "qtimagereader.h"
+#include "qtimagewriter.h"
+#include "packer/impl/Unpacker.hpp"
+#include "packer/impl/DefaultProfileReader.hpp"
+
+using std::exception;
+using packer::Unpacker;
+using packer::DefaultProfileReader;
 
 UnpackedWidget::UnpackedWidget(const UnpackedParam &param, QWidget *parent)
     : QWidget{parent}
@@ -79,9 +88,28 @@ void UnpackedWidget::showResultInfo(const QString &baseInfo, Code code){
 }
 
 void UnpackedWidget::initConnection(){
-
+    connect(m_btnUnpack, SIGNAL(clicked(bool)), this, SLOT(do_btnUnpackClicked()));
 }
 
 void UnpackedWidget::do_btnUnpackClicked(){
-
+    QStringList qs = m_param.picsetPath.split(u'.');
+    QString prfPath = qs[0] + ".prf";
+    
+    try{
+        Unpacker unpacker(new QtImageReader(m_param.picsetPath), new DefaultProfileReader(prfPath.toStdString()));
+        unpacker.unpack();
+        
+        auto idList = unpacker.idList();
+        for(auto &id : idList){
+            QString pngPath = m_param.targetPath + "/" + QString::fromStdString(id) + ".png";
+            QSharedPointer<VImage> qptr(unpacker.getImageById(id));
+            QtImageWriter iwriter(pngPath);
+            iwriter.write(*qptr);
+        }
+        
+        showResultInfo("解包成功", Code::OK);
+    }
+    catch(exception &e){
+        showResultInfo(QString("解包失败(%1)").arg(e.what()), Code::ERR);
+    }
 }

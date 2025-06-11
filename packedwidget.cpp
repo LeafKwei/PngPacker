@@ -2,12 +2,14 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <stdexcept>
 #include "packedwidget.h"
 #include "qtimagereader.h"
 #include "qtimagewriter.h"
 #include "packer/impl/Packer.hpp"
 #include "packer/impl/DefaultProfileWriter.hpp"
 
+using std::exception;
 using packer::Packer;
 using packer::DefaultProfileWriter;
 
@@ -142,21 +144,28 @@ bool PackedWidget::isCorrectFileName(const QString &name){
 
 /* ---------------- SLOTS ------------------*/
 void PackedWidget::do_btnPackClicked(){
-    Packer packer(16, 100);
-    
-    int count = m_wgtFileView -> count();
-    for(int row = 0; row < count; row++){
-        QListWidgetItem *item = m_wgtFileView -> item(row);
-        packer.addImageReader(new QtImageReader(item -> data(Qt::UserRole).toString()));
+    try{
+        Packer packer(1, 1280);
+        
+        int count = m_wgtFileView -> count();
+        for(int row = 0; row < count; row++){
+            QListWidgetItem *item = m_wgtFileView -> item(row);
+            packer.addImageReader(new QtImageReader(item -> data(Qt::UserRole).toString()));
+        }
+        
+        QString targetImagePath = m_param.targetPath + "/" + m_param.name + ".png";
+        QString targetProfilePath = m_param.targetPath + "/" + m_param.name + ".prf";
+        QtImageWriter iwriter(targetImagePath);
+        DefaultProfileWriter pwriter(targetProfilePath.toStdString());
+        
+        packer.pack();
+        packer.save(iwriter, pwriter);
+        
+        showResultInfo(QString("打包成功"), Code::OK);
     }
-    
-    QString targetImagePath = m_param.targetPath + "/" + m_param.name + ".png";
-    QString targetProfilePath = m_param.targetPath + "/" + m_param.name + ".prf";
-    QtImageWriter iwriter(targetImagePath);
-    DefaultProfileWriter pwriter(targetProfilePath.toStdString());
-    
-    packer.pack();
-    packer.save(iwriter, pwriter);
+    catch(exception &e){
+        showResultInfo(QString("打包失败(%1)").arg(e.what()), Code::ERR);
+    }
 }
 
 void PackedWidget::do_btnAppendClicked(){
